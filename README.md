@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Países
 
 Aplicación en Angular 21 que lista los países del mundo, permite buscarlos, ver sus detalles y consultar su clima.
@@ -189,3 +190,6 @@ Si un dato no viene en la API, la tarjeta dice "No disponible" (o no aparece, en
 | `@Input` | `pais` | El país a mostrar (obligatorio) |
 | `@Output` | `verClima` | Emite el país cuando pulsas "Ver clima" |
 | `@Output` | `verVecino` | Emite el nombre del país vecino cuando pulsas una frontera |
+=======
+https://broad-credit-c2c2.glaconsa2014.workers.dev/
+>>>>>>> 7d0a15613cb19ec970b999edfbb11c29437f5c76
