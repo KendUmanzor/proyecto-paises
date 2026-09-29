@@ -1,13 +1,14 @@
 import { Component, OnInit, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { PaisApi } from '../services/pais-api';
 import { PaisCard } from '../pais-card/pais-card';
 import { Paginador } from '../paginador/paginador';
+import { ClimaComponent } from '../clima-component/clima-component';
+import { DetalleComponent } from '../detalle-component/detalle-component';
 
 @Component({
   selector: 'app-paises',
-  imports: [CommonModule, PaisCard, Paginador],
+  imports: [CommonModule, PaisCard, Paginador, ClimaComponent, DetalleComponent],
   templateUrl: './paises.html',
   styleUrl: './paises.css'
 })
@@ -19,7 +20,10 @@ export class Paises implements OnInit {
   readonly paisesPorPagina = 9;
   paginaActual = signal(1);
 
-  constructor(public apiService: PaisApi, private router: Router) {
+  paisModalClima = signal<any | null>(null);
+  paisModalDetalle = signal<any | null>(null);
+
+  constructor(public apiService: PaisApi) {
     effect(() => {
       this.apiService.terminoBusqueda();
       this.paginaActual.set(1);
@@ -38,7 +42,6 @@ export class Paises implements OnInit {
       }
     });
   }
-
 
   paisesFiltrados = computed(() => {
     return [...this.apiService.buscarPaises(this.apiService.terminoBusqueda())].sort((a, b) =>
@@ -62,10 +65,20 @@ export class Paises implements OnInit {
   }
 
   onVerClima(pais: any): void {
-    this.router.navigate(['/clima', this.apiService.obtenerNombrePais(pais)]);
+    this.paisModalDetalle.set(null);
+    this.paisModalClima.set(pais);
   }
 
   onVerDetalles(pais: any): void {
-    this.router.navigate(['/detalle', this.apiService.obtenerNombrePais(pais)]);
+    this.paisModalClima.set(null);
+    this.paisModalDetalle.set(pais);
+  }
+
+  cerrarModalClima(): void {
+    this.paisModalClima.set(null);
+  }
+
+  cerrarModalDetalle(): void {
+    this.paisModalDetalle.set(null);
   }
 }

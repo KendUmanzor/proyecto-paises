@@ -11,12 +11,12 @@
       Ver detalles
    </button>
 
-   <!-- Emoji del clima actual: describirCodigo (clima-api.ts) convierte el código de Open-Meteo en emoji -->
+ 
    @let actual = climaApi.describirCodigo(c.actual.codigo);
    @if (actual.imagen) {
       <img [src]="actual.imagen" [alt]="actual.texto" class="h-16 w-16 mx-auto mb-2" />
    } @else {
-      <p class="text-6xl mb-2">{{ actual.icono }}</p>
+      <p class="text-6xl mb-2"></p>
    }
    <p class="text-5xl font-bold text-gray-900">{{ c.actual.temperatura | number:'1.0-0' }}°C</p>
    <p class="text-lg text-gray-600 mb-6">{{ climaApi.describirCodigo(c.actual.codigo).texto }}</p>
@@ -51,7 +51,7 @@
          @if (dia.imagen) {
             <img [src]="dia.imagen" [alt]="dia.texto" [title]="dia.texto" class="h-8 w-8 mx-auto my-1" />
          } @else {
-            <p class="text-3xl my-1" [title]="dia.texto">{{ dia.icono }}</p>
+            <p class="text-3xl my-1" [title]="dia.texto"></p>
          }
          <p class="text-sm font-semibold text-gray-800">{{ d.maxima | number:'1.0-0' }}°</p>
          <p class="text-sm text-gray-400">{{ d.minima | number:'1.0-0' }}°</p>

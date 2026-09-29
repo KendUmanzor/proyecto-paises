@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {SearchComponent} from '../search-component/search-component';
+import { SearchComponent } from '../search-component/search-component';
+import { Paises } from '../paises/paises';
+
 @Component({
   selector: 'app-layout',
-  imports: [SearchComponent, RouterOutlet],
+  imports: [SearchComponent, Paises],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })

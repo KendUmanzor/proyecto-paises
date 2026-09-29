@@ -99,18 +99,18 @@ export class ClimaApi {
     );
   }
 
-  describirCodigo(codigo: number): { texto: string; icono: string; imagen?: string } {
-    if (codigo === 0) return { texto: 'Clear sky', icono: '☀️', imagen: 'icons/clear-sky.png' };
-    if (codigo === 1) return { texto: 'Mainly clear', icono: '🌤️', imagen: 'icons/mainly-clear.png' };
-    if (codigo === 2) return { texto: 'Partly cloudy', icono: '⛅', imagen: 'icons/partly-cloudy.png' };
-    if (codigo === 3) return { texto: 'Overcast', icono: '☁️', imagen: 'icons/overcast.png' };
-    if (codigo === 45 || codigo === 48) return { texto: 'Fog', icono: '🌫️', imagen: 'icons/fog.png' };
-    if (codigo >= 51 && codigo <= 57) return { texto: 'Drizzle', icono: '🌦️', imagen: 'icons/rain.png' };
-    if (codigo >= 61 && codigo <= 67) return { texto: 'Rain', icono: '🌧️', imagen: 'icons/rain.png' };
-    if (codigo >= 71 && codigo <= 77) return { texto: 'Snow', icono: '❄️', imagen: 'icons/snow.png' };
-    if (codigo >= 80 && codigo <= 82) return { texto: 'Rain showers', icono: '🌧️', imagen: 'icons/rain.png' };
-    if (codigo === 85 || codigo === 86) return { texto: 'Snow showers', icono: '🌨️', imagen: 'icons/snow-showers.png' };
-    if (codigo >= 95) return { texto: 'Thunderstorm', icono: '⛈️', imagen: 'icons/thunderstorm.png' };
-    return { texto: 'No data', icono: '❔' };
+  describirCodigo(codigo: number): { texto: string; imagen?: string } {
+    if (codigo === 0) return { texto: 'Clear sky', imagen: 'icons/clear-sky.png' };
+    if (codigo === 1) return { texto: 'Mainly clear', imagen: 'icons/mainly-clear.png' };
+    if (codigo === 2) return { texto: 'Partly cloudy', imagen: 'icons/partly-cloudy.png' };
+    if (codigo === 3) return { texto: 'Overcast', imagen: 'icons/overcast.png' };
+    if (codigo === 45 || codigo === 48) return { texto: 'Fog',  imagen: 'icons/fog.png' };
+    if (codigo >= 51 && codigo <= 57) return { texto: 'Drizzle', imagen: 'icons/rain.png' };
+    if (codigo >= 61 && codigo <= 67) return { texto: 'Rain',  imagen: 'icons/rain.png' };
+    if (codigo >= 71 && codigo <= 77) return { texto: 'Snow', imagen: 'icons/snow.png' };
+    if (codigo >= 80 && codigo <= 82) return { texto: 'Rain showers', imagen: 'icons/rain.png' };
+    if (codigo === 85 || codigo === 86) return { texto: 'Snow showers', imagen: 'icons/snow-showers.png' };
+    if (codigo >= 95) return { texto: 'Thunderstorm', imagen: 'icons/thunderstorm.png' };
+    return { texto: 'No data'};
   }
 }
