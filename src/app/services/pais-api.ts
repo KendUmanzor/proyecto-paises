@@ -80,10 +80,18 @@ export class PaisApi {
 
   obtenerNombrePais(pais: any): string {
     return (
-      pais?.names?.translations?.spa?.common ||
       pais?.names?.common ||
       pais?.name?.common ||
       ''
+    );
+  }
+
+
+  buscarPorNombre(nombre: string): any {
+    const buscado = this.normalizarTexto(nombre);
+    return this.paisesSignal().find((p) =>
+      [this.obtenerNombrePais(p), p?.names?.common, p?.name?.common]
+        .some((n) => this.normalizarTexto(n) === buscado)
     );
   }
 

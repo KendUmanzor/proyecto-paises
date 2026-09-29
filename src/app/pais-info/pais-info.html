@@ -1,0 +1,100 @@
+@let p = pais;
+<div class="bg-white rounded-2xl shadow-md overflow-hidden">
+   @if (bandera(p)) {
+      <img [src]="bandera(p)" [alt]="'Bandera de ' + paisApi.obtenerNombrePais(p)" class="w-full h-64 object-cover border-b border-gray-100" />
+   }
+
+   <div class="p-8">
+      <h1 class="text-3xl font-extrabold text-gray-900">
+         {{ p.flag?.emoji }} {{ paisApi.obtenerNombrePais(p) }}
+      </h1>
+      @if (p.names?.official) {
+         <p class="text-gray-500 mb-4">{{ p.names.official }}</p>
+      }
+
+      @if (p.descriptions?.short) {
+         <p class="text-gray-600 leading-relaxed mb-6 text-justify">{{ p.descriptions.short }}</p>
+      }
+
+      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+         @if (capital(p)) {
+            <div class="bg-gray-50 rounded-xl p-4">
+               <dt class="text-xs uppercase text-gray-400">Capital</dt>
+               <dd class="font-semibold text-gray-800">{{ capital(p) }}</dd>
+            </div>
+         }
+         @if (p.region) {
+            <div class="bg-gray-50 rounded-xl p-4">
+               <dt class="text-xs uppercase text-gray-400">Región</dt>
+               <dd class="font-semibold text-gray-800">{{ p.region }}@if (p.subregion) { ({{ p.subregion }}) }</dd>
+            </div>
+         }
+         @if (p.population) {
+            <div class="bg-gray-50 rounded-xl p-4">
+               <dt class="text-xs uppercase text-gray-400">Población</dt>
+               <dd class="font-semibold text-gray-800">{{ p.population | number }} habitantes</dd>
+            </div>
+         }
+         <div class="bg-gray-50 rounded-xl p-4">
+            <dt class="text-xs uppercase text-gray-400">Área</dt>
+            <dd class="font-semibold text-gray-800">
+               @if (area(p) !== null) { {{ area(p) | number }} km² } @else { No disponible }
+            </dd>
+         </div>
+         <div class="bg-gray-50 rounded-xl p-4">
+            <dt class="text-xs uppercase text-gray-400">Idiomas</dt>
+            <dd class="font-semibold text-gray-800">
+               @if (idiomas(p).length) { {{ idiomas(p).join(', ') }} } @else { No disponible }
+            </dd>
+         </div>
+         <div class="bg-gray-50 rounded-xl p-4">
+            <dt class="text-xs uppercase text-gray-400">Monedas</dt>
+            <dd class="font-semibold text-gray-800">
+               @if (monedas(p).length) { {{ monedas(p).join(', ') }} } @else { No disponible }
+            </dd>
+         </div>
+         @if (aLista(p.timezones).length) {
+            <div class="bg-gray-50 rounded-xl p-4">
+               <dt class="text-xs uppercase text-gray-400">Zonas horarias</dt>
+               <dd class="font-semibold text-gray-800">{{ aLista(p.timezones).join(', ') }}</dd>
+            </div>
+         }
+         <div class="bg-gray-50 rounded-xl p-4">
+            <dt class="text-xs uppercase text-gray-400">Fronteras</dt>
+            <dd class="font-semibold text-gray-800">
+               @if (fronteras(p).length) {
+                  <div class="flex flex-wrap gap-2 mt-1">
+                     @for (f of fronteras(p); track f.codigo) {
+                        @if (f.encontrado) {
+                           <button type="button" (click)="verVecino.emit(f.nombre)" class="px-3 py-1 rounded-full bg-white border border-gray-200 text-sm hover:bg-gray-100">{{ f.nombre }}</button>
+                        } @else {
+                           <span class="px-3 py-1 rounded-full bg-white border border-gray-200 text-sm">{{ f.nombre }}</span>
+                        }
+                     }
+                  </div>
+               } @else {
+                  Sin fronteras terrestres
+               }
+            </dd>
+         </div>
+         <div class="bg-gray-50 rounded-xl p-4">
+            <dt class="text-xs uppercase text-gray-400">Códigos</dt>
+            <dd class="font-semibold text-gray-800">
+               @if (codigos(p).length) {
+                  @for (c of codigos(p); track c.etiqueta) {
+                     <span class="block text-sm"><span class="font-normal text-gray-500">{{ c.etiqueta }}:</span> {{ c.valor }}</span>
+                  }
+               } @else {
+                  No disponible
+               }
+            </dd>
+         </div>
+      </dl>
+
+      <div class="mt-8 flex flex-wrap gap-3 justify-center">
+         <button type="button" (click)="verClima.emit(pais)" class="inline-block py-2 px-7 border border-[#E5E7EB] rounded-full font-medium hover:bg-gray-100 transition">
+            Ver clima
+         </button>
+      </div>
+   </div>
+</div>

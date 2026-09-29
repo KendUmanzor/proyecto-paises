@@ -1,0 +1,28 @@
+<section class="pt-6 pb-12 bg-[#F3F4F6] min-h-screen">
+   <div class="container mx-auto px-4 max-w-4xl">
+      <a routerLink="/" class="inline-block mb-6 px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100">
+         ← Volver a países
+      </a>
+
+      @if (cargando()) {
+         <div class="text-center py-16">
+            <img src="https://media.tenor.com/zRg95-LgG9UAAAAM/smw-mario.gif" alt="Cargando" class="mx-auto h-32 w-auto mb-3" />
+            <p class="text-lg font-medium">Cargando el clima</p>
+         </div>
+      }
+
+      @if (error()) {
+         <div class="max-w-md mx-auto bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-center my-6">
+            <p>{{ error() }}</p>
+         </div>
+      }
+
+      @if (clima(); as c) {
+         <app-clima-info
+            [pais]="pais()"
+            [clima]="c"
+            (verDetalles)="irADetalle($event)"
+         />
+      }
+   </div>
+</section>

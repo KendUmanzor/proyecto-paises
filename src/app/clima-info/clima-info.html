@@ -1,0 +1,48 @@
+@let c = clima;
+<div class="bg-white rounded-2xl shadow-md p-8 mb-8 text-center">
+   <h1 class="text-2xl font-extrabold text-gray-900 mb-1">
+      {{ pais?.flag?.emoji }} {{ paisApi.obtenerNombrePais(pais) }}
+   </h1>
+   <p class="text-gray-500 mb-4">
+      {{ pais?.capitals?.[0]?.name || pais?.capitals?.[0] || pais?.capital?.[0] }}
+   </p>
+
+   <button type="button" (click)="verDetalles.emit(pais)" class="mb-4 inline-block py-1 px-5 border border-[#E5E7EB] rounded-full text-sm font-medium hover:bg-gray-100 transition">
+      Ver detalles
+   </button>
+
+   <p class="text-6xl mb-2">{{ climaApi.describirCodigo(c.actual.codigo).icono }}</p>
+   <p class="text-5xl font-bold text-gray-900">{{ c.actual.temperatura | number:'1.0-0' }}°C</p>
+   <p class="text-lg text-gray-600 mb-6">{{ climaApi.describirCodigo(c.actual.codigo).texto }}</p>
+
+   <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-gray-600">
+      <div class="bg-gray-50 rounded-xl p-3">
+         <p class="text-xs uppercase text-gray-400">Sensación</p>
+         <p class="font-semibold text-gray-800">{{ c.actual.sensacion | number:'1.0-0' }}°C</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-3">
+         <p class="text-xs uppercase text-gray-400">Humedad</p>
+         <p class="font-semibold text-gray-800">{{ c.actual.humedad }}%</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-3">
+         <p class="text-xs uppercase text-gray-400">Viento</p>
+         <p class="font-semibold text-gray-800">{{ c.actual.viento }} km/h</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-3">
+         <p class="text-xs uppercase text-gray-400">Precipitación</p>
+         <p class="font-semibold text-gray-800">{{ c.actual.precipitacion }} mm</p>
+      </div>
+   </div>
+</div>
+
+<h2 class="text-xl font-bold text-gray-900 mb-4">Pronóstico de 7 días</h2>
+<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+   @for (d of c.dias; track d.fecha) {
+      <div class="bg-white rounded-xl shadow-sm p-3 text-center">
+         <p class="text-xs font-semibold text-gray-500 uppercase">{{ d.fecha | date:'EEE d' }}</p>
+         <p class="text-3xl my-1" [title]="climaApi.describirCodigo(d.codigo).texto">{{ climaApi.describirCodigo(d.codigo).icono }}</p>
+         <p class="text-sm font-semibold text-gray-800">{{ d.maxima | number:'1.0-0' }}°</p>
+         <p class="text-sm text-gray-400">{{ d.minima | number:'1.0-0' }}°</p>
+      </div>
+   }
+</div>
