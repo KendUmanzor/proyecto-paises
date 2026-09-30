@@ -58,18 +58,10 @@
    </div>
 </section>
 
-@if (paisModalClima()) {
-   <app-clima-component
-      [pais]="paisModalClima()"
-      (cerrar)="cerrarModalClima()"
-      (verDetalles)="onVerDetalles($event)"
-   />
-}
-
-@if (paisModalDetalle()) {
-   <app-detalle-component
-      [pais]="paisModalDetalle()"
-      (cerrar)="cerrarModalDetalle()"
-      (verClima)="onVerClima($event)"
+@if (paisSeleccionadoModal()) {
+   <app-modales-component
+      [pais]="paisSeleccionadoModal()"
+      [tipo]="tipoModal()"
+      (cerrar)="cerrarModal()"
    />
 }

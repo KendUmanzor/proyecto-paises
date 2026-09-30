@@ -34,9 +34,6 @@
                <span>({{ pais.subregion }})</span>
             }
          </p>
-         <p class="text-base text-body-color leading-relaxed mb-4">
-            <strong>Población:</strong> {{ (pais.population | number) || 'N/A' }}
-         </p>
          @if (pais.descriptions?.short) {
             <p class="text-sm text-gray-500 leading-relaxed mb-4 text-justify">
                {{ pais.descriptions.short }}
@@ -79,7 +76,7 @@
             "
             (click)="verDetalles.emit(pais)"
          >
-            ver detalles
+            ver detalless
          </a>
       }
    </div>

@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PaisApi } from '../services/pais-api';
 import { PaisCard } from '../pais-card/pais-card';
 import { Paginador } from '../paginador/paginador';
-import { ClimaComponent } from '../clima-component/clima-component';
-import { DetalleComponent } from '../detalle-component/detalle-component';
+import { ModalesComponent, TipoModal } from '../modales-component/modales-component';
 
 @Component({
   selector: 'app-paises',
-  imports: [CommonModule, PaisCard, Paginador, ClimaComponent, DetalleComponent],
+  imports: [CommonModule, PaisCard, Paginador, ModalesComponent],
   templateUrl: './paises.html',
   styleUrl: './paises.css'
 })
@@ -20,8 +19,8 @@ export class Paises implements OnInit {
   readonly paisesPorPagina = 9;
   paginaActual = signal(1);
 
-  paisModalClima = signal<any | null>(null);
-  paisModalDetalle = signal<any | null>(null);
+  paisSeleccionadoModal = signal<any | null>(null);
+  tipoModal = signal<TipoModal>('detalle');
 
   constructor(public apiService: PaisApi) {
     effect(() => {
@@ -65,20 +64,16 @@ export class Paises implements OnInit {
   }
 
   onVerClima(pais: any): void {
-    this.paisModalDetalle.set(null);
-    this.paisModalClima.set(pais);
+    this.paisSeleccionadoModal.set(pais);
+    this.tipoModal.set('clima');
   }
 
   onVerDetalles(pais: any): void {
-    this.paisModalClima.set(null);
-    this.paisModalDetalle.set(pais);
+    this.paisSeleccionadoModal.set(pais);
+    this.tipoModal.set('detalle');
   }
 
-  cerrarModalClima(): void {
-    this.paisModalClima.set(null);
-  }
-
-  cerrarModalDetalle(): void {
-    this.paisModalDetalle.set(null);
+  cerrarModal(): void {
+    this.paisSeleccionadoModal.set(null);
   }
 }
